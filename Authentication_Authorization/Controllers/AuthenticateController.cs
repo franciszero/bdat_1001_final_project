@@ -24,6 +24,7 @@ namespace Authentication_Authorization.Controllers
             _roleManager = roleManager;
             _configuration = configuration;
         }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -50,6 +51,7 @@ namespace Authentication_Authorization.Controllers
             }
             return Unauthorized();
         }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -68,6 +70,7 @@ namespace Authentication_Authorization.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
+
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -98,6 +101,7 @@ namespace Authentication_Authorization.Controllers
             }
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
+
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
